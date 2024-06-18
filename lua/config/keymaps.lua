@@ -28,9 +28,8 @@ if not vim.g.vscode then
   vim.keymap.del("n", "<leader>qÞ")
 end
 
--- NOTE: Add custom keymaps
 -- Floating terminal
-vim.keymap.set("n", "<C-`>", lazyterm)
+vim.keymap.set({ "n", "i" }, "<C-`>", lazyterm)
 vim.keymap.set("t", "<C-`>", "<cmd>close<CR>")
 
 -- Buffer(Tab) switch using <Tab>
@@ -38,8 +37,9 @@ vim.keymap.set("n", "<tab>", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 vim.keymap.set("n", "<S-tab>", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
 vim.keymap.set("n", "<leader>q", "<cmd>BufferLineCloseOthers<CR>")
 vim.keymap.set("n", "<leader>kq", "<cmd>qa<cr>", { desc = "Quit All" })
--- Save all
-vim.keymap.set("n", "<leader>d", "<cmd>wa<cr>", { desc = "Dump All" })
+
+-- Save all buffers
+vim.keymap.set("n", "<leader>j", "<cmd>wa<cr>", { desc = "Save All" })
 
 -- Use H/L to move to beginning/end of line
 vim.keymap.set("n", "H", "^")
@@ -47,9 +47,11 @@ vim.keymap.set("n", "L", "$")
 vim.keymap.set("x", "H", "^")
 vim.keymap.set("x", "L", "$")
 
+-- Use H/L to move to beginning/end of line
+vim.keymap.set("n", "gi", "<cmd>normal gI<cr>")
+
 -- Comment line
-vim.keymap.set("n", "<C-/>", "<cmd>normal gcc<cr>")
-vim.keymap.set("i", "<C-/>", "<cmd>normal gcc<cr>")
+vim.keymap.set({ "n", "i", "x" }, "<C-/>", "<cmd>normal gcc<cr>")
 
 -- Code format
 vim.keymap.set({ "n", "v" }, "<leader>l", function()
@@ -70,14 +72,15 @@ if vim.g.vscode then
   set_vscode_keymap("n", "<leader>l", "editor.action.formatDocument", "Format")
   set_vscode_keymap("n", "<leader>q", "workbench.action.closeOtherEditors", "Quit Other")
   set_vscode_keymap("n", "<leader>i", "inlineFold.toggle", "Inline Fold Toggle")
+  set_vscode_keymap("n", "<leader>j", "saveAll", "Save All")
 end
 
 if vim.g.neovide then
-  vim.keymap.set({ "i", "n" }, "<D-s>", "<cmd>w<CR>")
-  vim.keymap.set("n", "<D-s>", "<cmd>w<CR>") -- Save
+  vim.keymap.set({ "i", "n" }, "<D-s>", "<cmd>w<CR>") -- Save
   vim.keymap.set("v", "<D-c>", '"+y') -- Copy
   vim.keymap.set("n", "<D-v>", '"+P') -- Paste normal mode
   vim.keymap.set("v", "<D-v>", '"+P') -- Paste visual mode
   vim.keymap.set("c", "<D-v>", "<C-R>+") -- Paste command mode
   vim.keymap.set("i", "<D-v>", "<C-R>+") -- Paste insert mode
+  vim.keymap.set({ "n", "i", "x" }, "<D-/>", "<cmd>normal gcc<cr>") -- Comment line
 end

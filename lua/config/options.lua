@@ -3,6 +3,10 @@
 -- Add any additional options here
 vim.opt.scrolloff = 10
 
+vim.api.nvim_create_user_command("GoAddTags", function(opts)
+  require("gomodifytags").GoAddTags(opts.fargs[1], opts.args)
+end, { nargs = "+" })
+
 if vim.g.neovide then
   vim.g.neovide_transparency = 0.95
 end

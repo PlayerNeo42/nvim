@@ -11,7 +11,17 @@ return {
     local cmp = require("cmp")
 
     opts.mapping = vim.tbl_extend("force", opts.mapping, {
-      ["<D-i>"] = cmp.mapping.complete(),
+      ["<C-n>"] = cmp.mapping(function(fallback)
+        if cmp.visible() then
+          cmp.select_next_item()
+        elseif vim.snippet.active({ direction = 1 }) then
+          vim.schedule(function()
+            vim.snippet.jump(1)
+          end)
+        else
+          cmp.complete()
+        end
+      end),
       ["<Tab>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
           -- cmp.select_next_item()
@@ -22,17 +32,6 @@ return {
           end)
         elseif has_words_before() then
           cmp.complete()
-        else
-          fallback()
-        end
-      end, { "i", "s" }),
-      ["<S-Tab>"] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-          cmp.select_prev_item()
-        elseif vim.snippet.active({ direction = -1 }) then
-          vim.schedule(function()
-            vim.snippet.jump(-1)
-          end)
         else
           fallback()
         end
