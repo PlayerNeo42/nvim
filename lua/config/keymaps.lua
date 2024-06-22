@@ -80,7 +80,6 @@ if vim.g.neovide then
   vim.keymap.set("v", "<D-c>", '"+y') -- Copy
   vim.keymap.set("n", "<D-v>", '"+P') -- Paste normal mode
   vim.keymap.set("v", "<D-v>", '"+P') -- Paste visual mode
-  vim.keymap.set("c", "<D-v>", "<C-R>+") -- Paste command mode
-  vim.keymap.set("i", "<D-v>", "<C-R>+") -- Paste insert mode
+  vim.keymap.set({ "c", "i" }, "<D-v>", "<C-R>+") -- Paste
   vim.keymap.set({ "n", "i", "x" }, "<D-/>", "<cmd>normal gcc<cr>") -- Comment line
 end
