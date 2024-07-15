@@ -23,10 +23,6 @@ vim.keymap.del("n", "<C-s>")
 vim.keymap.del("s", "<C-s>")
 vim.keymap.del("n", "<C-/>")
 vim.keymap.del("n", "<leader>l")
-if not vim.g.vscode then
-  -- This cause error output in vscode
-  vim.keymap.del("n", "<leader>qÞ")
-end
 
 -- Floating terminal
 vim.keymap.set({ "n", "i" }, "<C-`>", lazyterm)
