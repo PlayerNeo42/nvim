@@ -2,11 +2,6 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 
--- Helper functions
-local lazyterm = function()
-  LazyVim.terminal(nil, { cwd = LazyVim.root() })
-end
-
 -- NOTE: Remove default keymaps
 vim.keymap.del("v", "<A-j>")
 vim.keymap.del("v", "<A-k>")
@@ -25,7 +20,9 @@ vim.keymap.del("n", "<C-/>")
 vim.keymap.del("n", "<leader>l")
 
 -- Floating terminal
-vim.keymap.set({ "n", "i" }, "<C-`>", lazyterm)
+vim.keymap.set({ "n", "i" }, "<C-`>", function()
+  Snacks.terminal(nil, { cwd = LazyVim.root() })
+end)
 vim.keymap.set("t", "<C-`>", "<cmd>close<CR>")
 
 -- Buffer(Tab) switch using <Tab>
